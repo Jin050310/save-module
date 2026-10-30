@@ -1,0 +1,21 @@
+.ttx-button {
+  border: 0; border-radius: 8px; padding: 10px 14px; background: #2457d6; color: #fff;
+  font: 600 14px/1.35 system-ui, sans-serif; cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,.18);
+}
+.ttx-button:hover { background: #1947bb; }
+.ttx-floating-button { position: fixed; right: 20px; bottom: 20px; z-index: 2147483647; }
+.ttx-overlay {
+  position: fixed; inset: 0; z-index: 2147483646; display: flex; align-items: center;
+  justify-content: center; padding: 20px; background: rgba(0,0,0,.48); font-family: system-ui, sans-serif;
+}
+.ttx-card {
+  box-sizing: border-box; width: min(560px,100%); max-height: min(80vh,760px); overflow: auto;
+  padding: 24px; border-radius: 14px; background: #fff; color: #202124; box-shadow: 0 12px 40px rgba(0,0,0,.25);
+}
+.ttx-heading { margin: 0 0 8px; font-size: 20px; }
+.ttx-note { margin: 0 0 18px; color: #5f6368; font-size: 14px; line-height: 1.5; }
+.ttx-course-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.ttx-course-item { white-space: pre-line; padding: 12px; border: 1px solid #dadce0; border-radius: 8px; font-size: 14px; line-height: 1.6; }
+.ttx-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+.ttx-secondary { background: #5f6368; }
+.ttx-secondary:hover { background: #494c50; }

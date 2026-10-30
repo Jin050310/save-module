@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "수강시간표 가져오기 도우미",
+  "version": "0.1.0",
+  "description": "학교 포털의 수강신청 시간표를 저장하고 에타에서 미리 봅니다.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://portal.example.edu/*",
+    "https://everytime.kr/*",
+    "https://*.everytime.kr/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://portal.example.edu/*"],
+      "js": ["shared.js", "portal.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://everytime.kr/*", "https://*.everytime.kr/*"],
+      "js": ["shared.js", "everytime.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
