@@ -61,8 +61,13 @@ class TestTimeLocation(unittest.TestCase):
         self.assertTrue(any("강의실" in w for w in warnings))
 
     def test_period_beyond_verified_is_flagged(self):
-        _, warnings = parse_time_location("금14,15(A101)")
+        _, warnings = parse_time_location("금35(A101)")
         self.assertTrue(any("미확인" in w for w in warnings))
+
+    def test_period_34_is_verified(self):
+        self.assertEqual(period_to_range(34), (25 * 60 + 30, 26 * 60))
+        _, warnings = parse_time_location("금33,34(A101)")
+        self.assertEqual(warnings, [])
 
 
 class TestCourse(unittest.TestCase):
