@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>수강시간표 변환기</title>
+<style>
+  :root {
+    --bg: #fafafa; --fg: #1d1d1f; --muted: #6b6b70; --card: #fff; --line: #e2e2e6;
+    --accent: #2457d6; --accent-fg: #fff; --warn-bg: #fff6df; --warn-fg: #7a5200; --err: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151517; --fg: #ececee; --muted: #9a9aa2; --card: #1f1f22; --line: #333338;
+      --accent: #6b93ff; --accent-fg: #101012; --warn-bg: #3a2f10; --warn-fg: #f0cf85; --err: #ff8a80;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, "Malgun Gothic", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .privacy { font-size: .9rem; color: var(--muted); }
+  #drop { border: 2px dashed var(--line); border-radius: 12px; padding: 32px 16px; text-align: center; cursor: pointer; }
+  #drop.over { border-color: var(--accent); }
+  #drop strong { display: block; margin-bottom: 4px; }
+  button, .btn { font: inherit; background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  label { font-size: .9rem; color: var(--muted); }
+  input[type=text] { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--fg); width: 8em; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: .85rem; }
+  .table-wrap { overflow-x: auto; }
+  .warn { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: 8px 12px; margin-top: 8px; font-size: .9rem; }
+  .err { color: var(--err); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>수강시간표 변환기</h1>
+  <p class="sub">강의시간표 PDF를 올리면 과목별 요일·시간·강의실을 표로 만들어 줍니다.</p>
+
+  <div class="card privacy">
+    PDF는 서버로 전송되지 않고 <strong>이 브라우저 안에서만</strong> 처리됩니다. PDF에 들어 있는 성명은 읽지도 저장하지도 않습니다.
+  </div>
+
+  <div class="card">
+    <div id="drop" tabindex="0" role="button" aria-label="PDF 파일 선택">
+      <strong>강의시간표 PDF를 여기에 끌어다 놓거나 눌러서 선택</strong>
+      <span class="privacy">수강신청 후 받는 '수업시간표' PDF</span>
+    </div>
+    <input id="file" type="file" accept="application/pdf,.pdf" hidden>
+    <p id="error" class="err" role="alert" hidden></p>
+  </div>
+
+  <div id="result" class="card" hidden>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>과목</th><th>교수</th><th>요일·시간</th><th>강의실</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div id="warnings"></div>
+    <div class="row">
+      <label>학기 <input id="semester" type="text" value="2026-2"></label>
+      <button id="dl-json" type="button">JSON 저장</button>
+      <button id="dl-csv" type="button" class="ghost">CSV 저장</button>
+    </div>
+  </div>
+</main>
+<script type="module" src="site/app.js"></script>
+</body>
+</html>
